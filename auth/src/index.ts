@@ -2,6 +2,7 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 
+import { errorHandler } from './middleware/error-handler';
 const app = express();
 app.use(json());
 
