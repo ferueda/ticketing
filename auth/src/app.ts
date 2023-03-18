@@ -7,14 +7,14 @@ import { signupRouter, signinRouter, signoutRouter, currentUserRouter } from './
 import { errorHandler } from './middleware/error-handler';
 import { NotFoundError } from './errors';
 
-const app = express();
+export const app = express();
 app.set('trust proxy', true);
 
 app.use(json());
 app.use(
   cookieSession({
     signed: false,
-    secure: true,
+    secure: process.env.NODE_ENV !== 'test',
   }),
 );
 
@@ -28,5 +28,3 @@ app.all('*', () => {
 });
 
 app.use(errorHandler);
-
-export default app;

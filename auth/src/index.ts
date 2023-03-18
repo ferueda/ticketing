@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { Express } from 'express';
-import app from './app';
+import { app } from './app';
 
 const start = async (app: Express) => {
   if (!process.env.JWT_KEY) throw new Error('JWT_KEY is not defined');
