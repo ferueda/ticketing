@@ -4,8 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 
 import { signupRouter, signinRouter, signoutRouter, currentUserRouter } from './routes';
-import { errorHandler } from './middleware/error-handler';
-import { NotFoundError } from './errors';
+import { errorHandler, NotFoundError } from '@frticketing/common';
 
 export const app = express();
 app.set('trust proxy', true);
