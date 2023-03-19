@@ -8,6 +8,14 @@ build:
   local:
     push: false
   artifacts:
+    - image: ferueda/client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.js'
+            dest: .
     - image: ferueda/auth
       context: auth
       docker:
@@ -16,11 +24,11 @@ build:
         manual:
           - src: 'src/**/*.ts'
             dest: .
-    - image: ferueda/client
-      context: client
+    - image: ferueda/tickets
+      context: tickets
       docker:
         dockerfile: Dockerfile
       sync:
         manual:
-          - src: '**/*.js'
+          - src: 'src/**/*.ts'
             dest: .
