@@ -2,9 +2,9 @@ import express from 'express';
 import 'express-async-errors';
 import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
+import { errorHandler, NotFoundError } from '@frticketing/common';
 
 import { signupRouter, signinRouter, signoutRouter, currentUserRouter } from './routes';
-import { errorHandler, NotFoundError } from '@frticketing/common';
 
 export const app = express();
 app.set('trust proxy', true);
