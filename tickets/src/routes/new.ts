@@ -9,8 +9,10 @@ const router = express.Router();
 router.post(
   '/api/tickets',
   requireAuth,
-  body('title').notEmpty().withMessage('title is invalid'),
-  body('price').isFloat({ gt: 0 }).withMessage('price must be greater than 0'),
+  [
+    body('title').notEmpty().withMessage('title is invalid'),
+    body('price').isFloat({ gt: 0 }).withMessage('price must be greater than 0'),
+  ],
   validateRequest,
   async (req: Request, res: Response) => {
     const { title, price } = req.body;
