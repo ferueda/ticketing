@@ -79,11 +79,4 @@ it('creates an order with valid inputs', async () => {
   expect(orders[0].ticket.toJSON()).toEqual(ticket.id);
 });
 
-it.todo('publishes an event', async () => {
-  const ticket = Ticket.build({ title: 'test', price: 10 });
-  await ticket.save();
-
-  await request(app).post('/api/orders').set('Cookie', global.signin()).send({
-    ticketId: ticket.id,
-  });
-});
+it.todo('publishes an event');
