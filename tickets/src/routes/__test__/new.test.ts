@@ -73,15 +73,9 @@ it('creates a ticket with valid inputs', async () => {
 });
 
 it('publishes an event', async () => {
-  const title = 'test';
-  const price = 20;
-
-  let tickets = await Ticket.find({});
-  expect(tickets.length).toEqual(0);
-
   await request(app).post('/api/tickets').set('Cookie', global.signin()).send({
-    title,
-    price,
+    title: 'test',
+    price: 20,
   });
 
   expect(natsWrapper.client.publish).toHaveBeenCalled();
