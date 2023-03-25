@@ -7,7 +7,7 @@ import { TicketDoc } from './ticket';
 interface OrderAttrs {
   userId: string;
   status: OrderStatus;
-  expiresAt: Date;
+  expiresAt?: Date;
   ticket: TicketDoc;
 }
 
@@ -61,4 +61,4 @@ orderSchema.statics.build = (attrs: OrderAttrs) => {
 
 const Order = mongoose.model<OrderDoc, OrderModel>('Order', orderSchema);
 
-export { Order };
+export { Order, OrderStatus };
