@@ -1,12 +1,21 @@
 import mongoose from 'mongoose';
 import express, { Request, Response } from 'express';
-import { requireAuth, validateRequest } from '@frticketing/common';
+import {
+  BadRequestError,
+  NotFoundError,
+  OrderStatus,
+  requireAuth,
+  validateRequest,
+} from '@frticketing/common';
 import { body } from 'express-validator';
 
 import { Ticket } from '../models/ticket';
 import { Order } from '../models/order';
+import { natsWrapper } from '../nats-wrapper';
 
 const router = express.Router();
+
+const EXPIRATION_WINDOW_SECONDS = 15 * 60;
 
 router.post(
   '/api/orders',
@@ -15,11 +24,25 @@ router.post(
     body('ticketId')
       .notEmpty()
       .custom((input: string) => mongoose.Types.ObjectId.isValid(input))
-      .withMessage('TicketId must be provided'),
+      .withMessage('invalid ticketId provided'),
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    res.send({});
+    const { ticketId, status, expiresAt } = req.body;
+    const ticket = await Ticket.findById(ticketId);
+    if (!ticket) throw new NotFoundError();
+    const isAvailable = await ticket.isAvailable();
+    if (!isAvailable) throw new BadRequestError('ticket is not available');
+    const expiration = new Date();
+    expiration.setSeconds(expiration.getSeconds() + EXPIRATION_WINDOW_SECONDS);
+    const order = Order.build({
+      userId: req.user!.id,
+      status: OrderStatus.Created,
+      expiresAt: expiration,
+      ticket,
+    });
+    await order.save();
+    res.status(201).send(order);
   },
 );
 
