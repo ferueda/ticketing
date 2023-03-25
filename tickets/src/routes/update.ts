@@ -7,7 +7,7 @@ import {
   requireAuth,
 } from '@frticketing/common';
 
-import { Ticket } from '../models/tickets';
+import { Ticket } from '../models/ticket';
 import { natsWrapper } from '../nats-wrapper';
 import { TicketUpdatedPublisher } from '../events/publishers/ticket-updated-publisher';
 
