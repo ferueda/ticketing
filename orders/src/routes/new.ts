@@ -28,7 +28,7 @@ router.post(
   ],
   validateRequest,
   async (req: Request, res: Response) => {
-    const { ticketId, status, expiresAt } = req.body;
+    const { ticketId } = req.body;
     const ticket = await Ticket.findById(ticketId);
     if (!ticket) throw new NotFoundError();
     const isAvailable = await ticket.isAvailable();
