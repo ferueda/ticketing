@@ -3,6 +3,11 @@ import mongoose from 'mongoose';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
 
+it('has a route handler listening to /api/orders/:id for get requests', async () => {
+  const response = await request(app).get('/api/orders/:id').send({});
+  expect(response.status).not.toEqual(404);
+});
+
 it('returns a 401 if user not logged in', async () => {
   const id = new mongoose.Types.ObjectId().toHexString();
   await request(app).get(`/api/orders/${id}`).send().expect(401);
