@@ -24,6 +24,7 @@ it('returns an error if one user tries to delete another users order', async () 
   const user1 = global.signin();
   const user2 = global.signin();
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'test',
     price: 20,
   });
@@ -43,6 +44,7 @@ it('returns an error if one user tries to delete another users order', async () 
 
 it('marks an order as cancelled', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'test',
     price: 20,
   });
@@ -63,6 +65,7 @@ it('marks an order as cancelled', async () => {
 
 it('publishes an event', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'test',
     price: 20,
   });

@@ -22,6 +22,7 @@ it('returns an error if one user tries to fetch another users order', async () =
   const user1 = global.signin();
   const user2 = global.signin();
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'test',
     price: 20,
   });
@@ -38,6 +39,7 @@ it('returns an error if one user tries to fetch another users order', async () =
 
 it('returns the order if found', async () => {
   const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
     title: 'test',
     price: 20,
   });

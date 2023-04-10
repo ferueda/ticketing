@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import request from 'supertest';
 import { app } from '../../app';
 import { Ticket } from '../../models/ticket';
@@ -14,8 +15,8 @@ it('can only be accessed if user is signed in', async () => {
 
 it('can fetch a list of orders', async () => {
   const tickets = [
-    { title: 'test 1', price: 10 },
-    { title: 'test 2', price: 20 },
+    { id: new mongoose.Types.ObjectId().toHexString(), title: 'test 1', price: 10 },
+    { id: new mongoose.Types.ObjectId().toHexString(), title: 'test 2', price: 20 },
   ];
 
   for (let ticket of tickets) {

@@ -43,7 +43,11 @@ it('return an error if ticket does not exist', async () => {
 });
 
 it('return an error if ticket is not available', async () => {
-  const ticket = Ticket.build({ title: 'test ticket', price: 10 });
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'test ticket',
+    price: 10,
+  });
   await ticket.save();
   const order = Order.build({
     userId: '123',
@@ -63,7 +67,11 @@ it('return an error if ticket is not available', async () => {
 });
 
 it('creates an order with valid inputs', async () => {
-  const ticket = Ticket.build({ title: 'test', price: 10 });
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'test',
+    price: 10,
+  });
   await ticket.save();
 
   let orders = await Order.find({});
@@ -80,7 +88,11 @@ it('creates an order with valid inputs', async () => {
 });
 
 it('publishes an event', async () => {
-  const ticket = Ticket.build({ title: 'test ticket', price: 10 });
+  const ticket = Ticket.build({
+    id: new mongoose.Types.ObjectId().toHexString(),
+    title: 'test ticket',
+    price: 10,
+  });
   await ticket.save();
   await request(app)
     .post('/api/orders')
