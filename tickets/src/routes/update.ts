@@ -5,6 +5,7 @@ import {
   NotFoundError,
   NotAuthorizedError,
   requireAuth,
+  BadRequestError,
 } from '@frticketing/common';
 
 import { Ticket } from '../models/ticket';
@@ -24,7 +25,7 @@ router.put(
   async (req: Request, res: Response) => {
     const ticket = await Ticket.findById(req.params.id);
     if (!ticket) throw new NotFoundError();
-
+    if (ticket.orderId) throw new BadRequestError('Ticket is not available');
     if (ticket.userId !== req.user!.id) throw new NotAuthorizedError();
 
     ticket.set({
