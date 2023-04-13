@@ -15,7 +15,7 @@ const setup = async () => {
   await ticket.save();
   const data: TicketUpdatedEvent['data'] = {
     id: ticket.id,
-    version: ticket.version,
+    version: ticket.version + 1,
     title: 'new test',
     price: 999,
     userId: 'abc',
@@ -34,7 +34,7 @@ it('finds, updates, and saves a ticket', async () => {
 
   expect(updatedTicket!.title).toEqual(data.title);
   expect(updatedTicket!.price).toEqual(data.price.toString());
-  expect(updatedTicket!.version).toEqual(data.version + 1);
+  expect(updatedTicket!.version).toEqual(data.version);
 });
 
 it('acks the message', async () => {
