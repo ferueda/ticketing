@@ -4,6 +4,8 @@ export default ({ user }) => {
   const links = [
     !user && { label: 'Sign Up', href: '/auth/signup' },
     !user && { label: 'Sign In', href: '/auth/signin' },
+    user && { label: 'Sell tickets', href: '/tickets/new' },
+    user && { label: 'Orders', href: '/orders' },
     user && { label: 'Sign Out', href: '/auth/signout' },
   ]
     .filter(Boolean)
