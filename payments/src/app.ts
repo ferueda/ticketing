@@ -4,6 +4,7 @@ import { json } from 'body-parser';
 import cookieSession from 'cookie-session';
 import { errorHandler, NotFoundError } from '@frticketing/common';
 import { currentUser } from '@frticketing/common';
+import { createChargeRouter } from './routes/new';
 
 export const app = express();
 app.set('trust proxy', true);
@@ -16,6 +17,8 @@ app.use(
   }),
 );
 app.use(currentUser);
+
+app.use(createChargeRouter);
 
 app.all('*', () => {
   throw new NotFoundError();
